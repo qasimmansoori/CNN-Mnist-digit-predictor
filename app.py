@@ -37,11 +37,9 @@ model.load_state_dict(torch.load("best_model (1).pt", map_location=device))
 model.to(device)
 model.eval()
 
-# smaller, centered header so UI fits and buttons are visible
 st.markdown("<h2 style='text-align:center; font-size:34px;'>🖌️ Handwritten Digit Recognition</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align:center; margin-top:-10px;'>Draw a digit (0-9) and the app will predict in real time.</p>", unsafe_allow_html=True)
 
-# initialize session state to avoid re-predicting unchanged drawings
 if "last_hash" not in st.session_state:
     st.session_state["last_hash"] = None
 if "last_prediction" not in st.session_state:
@@ -49,7 +47,6 @@ if "last_prediction" not in st.session_state:
 if "last_probs" not in st.session_state:
     st.session_state["last_probs"] = None
 
-# Two columns so canvas and results are side-by-side
 left_col, right_col = st.columns([1, 1])
 
 with left_col:
@@ -68,13 +65,10 @@ with left_col:
 with right_col:
     pred_placeholder = st.empty()
     chart_placeholder = st.empty()
-    # initial instruction
     if st.session_state["last_prediction"] is None:
         pred_placeholder.info("Prediction and probabilities will update automatically as you draw.")
 
-# Run prediction when the drawing changes
 if canvas_result and canvas_result.image_data is not None:
-    # create a grayscale 0-255 array from the canvas (invert so drawing is white-on-black like MNIST)
     img_arr = (255 - canvas_result.image_data[:, :, 0]).astype(np.uint8)
     img_hash = hashlib.md5(img_arr.tobytes()).hexdigest()
 
@@ -99,7 +93,6 @@ if canvas_result and canvas_result.image_data is not None:
         st.session_state["last_prediction"] = pred_class
         st.session_state["last_probs"] = probs
 
-    # display latest prediction/probs from session_state
     if st.session_state["last_prediction"] is not None:
         pred_placeholder.subheader(f"🧠 Predicted Digit: **{class_names[st.session_state['last_prediction']]}**")
 
@@ -110,7 +103,6 @@ if canvas_result and canvas_result.image_data is not None:
 
         chart_placeholder.bar_chart(prob_df["Probability (%)"])
 else:
-    # no drawing yet
     with left_col:
         st.info("Start drawing on the canvas to get a prediction.")
 
