@@ -1,0 +1,15 @@
+# Requirements for the Streamlit MNIST app
+# Note: For PyTorch, choose the correct wheel for your CUDA or CPU-only setup from https://pytorch.org/get-started/locally/
+
+streamlit>=1.10
+streamlit-drawable-canvas>=0.9.3
+numpy>=1.23
+pillow>=9.0
+pandas>=2.0
+# PyTorch and torchvision -- use CPU wheel or the CUDA build matching your system.
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Optional (only if needed):
+# matplotlib
+# tensorflow    # only if you switch to a TF/Keras model
