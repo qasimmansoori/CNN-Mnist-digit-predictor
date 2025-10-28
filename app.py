@@ -38,7 +38,7 @@ model.to(device)
 model.eval()
 
 st.markdown("<h2 style='text-align:center; font-size:34px;'>🖌️ Handwritten Digit Recognition</h2>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; margin-top:-10px;'>Draw a digit (0-9) and the app will predict in real time.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; margin-top:-10px;'>Draw a digit (0-9) and the app will predict.</p>", unsafe_allow_html=True)
 
 if "last_hash" not in st.session_state:
     st.session_state["last_hash"] = None
@@ -109,5 +109,5 @@ else:
 st.sidebar.header("About")
 st.sidebar.write("""
 This app uses a custom CNN trained on the MNIST dataset.
-It now predicts in real time as you draw and uses a smaller header so controls stay visible.
+It predicts in real time as you draw.
 """)
